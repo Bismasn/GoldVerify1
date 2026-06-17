@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoldChain Pro - Premium Asset Registry</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cinzel:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .gold-font {
+            font-family: 'Cinzel', serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0b0c14] text-slate-200 min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <header
+        class="w-full max-w-6xl flex flex-col sm:flex-row justify-between items-center bg-[#131524] border border-slate-800 rounded-2xl px-6 py-4 mb-6 gap-4">
+        <div class="flex items-center gap-3">
+            <span class="text-2xl">🏆</span>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-white">GoldChain</h1>
+                <p class="text-xs text-slate-400">PREMIUM ASSET REGISTRY</p>
+            </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+            <span
+                class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-2">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> Network: Sepolia
+            </span>
+            <button id="btnConnect" onclick="connectWallet()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-5 rounded-xl transition duration-200 cursor-pointer shadow-lg shadow-indigo-600/20">
+                Connect Wallet
+            </button>
+        </div>
+    </header>
+
+    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <div class="space-y-6">
+            <div class="bg-[#131524] border border-slate-800 p-5 rounded-2xl">
+                <h3 class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-4">Registry Stats</h3>
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-3">
+                    <span class="text-sm text-slate-400">System Engine</span>
+                    <span class="text-sm font-semibold text-emerald-400">VerifikasiEmasPro</span>
+                </div>
+                <div>
+                    <span class="text-xs text-slate-500 block truncate font-mono" id="walletLabel">Wallet Not
+                        Connected</span>
+                </div>
+            </div>
+
+            <div class="bg-[#131524] border border-slate-800 p-5 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold text-slate-400 tracking-wider uppercase">🏭 Minting Panel</span>
+                    <span
+                        class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-md">Otoritas
+                        Pabrik</span>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-[11px] text-slate-400 block mb-1">Nomor Seri Emas</label>
+                        <input type="text" id="addSerial" placeholder="Contoh: AUG-666"
+                            class="w-full bg-[#0b0c14] border border-slate-800 focus:border-indigo-500 focus:outline-none rounded-xl px-4 py-2.5 text-sm transition text-white">
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-slate-400 block mb-1">Batch Produksi</label>
+                        <input type="text" id="addBatch" placeholder="Contoh: BATCH-2026-A"
+                            class="w-full bg-[#0b0c14] border border-slate-800 focus:border-indigo-500 focus:outline-none rounded-xl px-4 py-2.5 text-sm transition text-white">
+                    </div>
+
+                    <button onclick="buatSertifikatEmas()"
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 rounded-xl transition duration-200 cursor-pointer shadow-md">
+                        Issue Gold Certificate
+                    </button>
+
+                    <div class="border-t border-slate-800 my-2 pt-4">
+                        <label class="text-[11px] text-slate-400 block mb-1 font-semibold text-red-400">Menu Pembatalan
+                            Kartu (Revoke)</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="statusSerial" placeholder="Masukkan ID Serial"
+                                class="flex-1 bg-[#0b0c14] border border-slate-800 focus:border-indigo-500 focus:outline-none rounded-xl px-3 py-1.5 text-xs text-white">
+                            <button onclick="ubahStatusValidasi(false)"
+                                class="bg-red-600/20 text-red-400 border border-red-500/30 px-4 rounded-xl text-xs hover:bg-red-600 hover:text-white transition cursor-pointer font-medium">Revoke</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-2 space-y-6">
+
+            <div class="bg-[#131524] border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xl font-bold text-white mb-2">Verify Authenticity</h2>
+                <p class="text-sm text-slate-400 mb-6">Masukkan nomor seri emas untuk memvalidasi tanda tangan
+                    kriptografi langsung dari ledger blockchain Sepolia.</p>
+
+                <div class="flex gap-3">
+                    <div class="relative flex-1">
+                        <span class="absolute left-4 top-3.5 text-slate-500 text-sm">#</span>
+                        <input type="text" id="querySerial" placeholder="Enter Certificate Gold Serial Number..."
+                            class="w-full bg-[#0b0c14] border border-slate-800 focus:border-indigo-500 focus:outline-none rounded-xl pl-8 pr-4 py-3 text-sm transition tracking-wide text-white">
+                    </div>
+                    <button onclick="cekKeaslianEmas()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 rounded-xl transition duration-200 flex items-center gap-2 cursor-pointer text-sm shadow-lg shadow-indigo-600/15">
+                        🔍 Query Registry
+                    </button>
+                </div>
+                <div id="toastMessage" class="mt-4 p-3 rounded-xl text-xs text-center hidden"></div>
+            </div>
+
+            <div class="bg-[#131524] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-[#171a2e]">
+                    <span class="text-xs font-bold text-slate-400 tracking-wider uppercase">👁️ Gold Certificate
+                        Preview</span>
+                    <span
+                        class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-md font-mono animate-pulse">LIVE
+                        ON-CHAIN RENDERING</span>
+                </div>
+
+                <div class="p-6 md:p-10 flex justify-center items-center bg-[#0e101b] min-h-[420px]">
+
+                    <div id="placeholderView" class="text-center space-y-3">
+                        <div class="text-4xl text-slate-600">📄</div>
+                        <p class="text-sm font-semibold text-slate-400">No Certificate Loaded</p>
+                        <p class="text-xs text-slate-500">Masukkan nomor seri di atas untuk merender lembar sertifikasi
+                            visual.</p>
+                    </div>
+
+                    <div id="certificateSheet"
+                        class="w-full max-w-2xl bg-[#faf9f5] text-slate-900 rounded-lg p-8 relative shadow-2xl border-[12px] border-double border-amber-600/20 hidden flex-col justify-between min-h-[460px]">
+
+                        <div class="absolute top-2 left-2 text-[10px] text-amber-800/10 font-serif">SECURE DECENTRALIZED
+                            LEDger</div>
+                        <div class="absolute bottom-2 right-2 text-[10px] text-amber-800/10 font-serif">GOLDCHAIN PRO
+                            ENGINE</div>
+
+                        <div class="text-center space-y-2 mt-4">
+                            <span class="text-3xl">👑</span>
+                            <h2 class="gold-font text-2xl font-bold tracking-wider text-amber-800">OFFICIAL CERTIFICATE
+                                OF AUTHENTICITY</h2>
+                            <p
+                                class="text-[10px] tracking-widest font-semibold text-slate-500 uppercase border-b border-slate-300 pb-4 max-w-md mx-auto">
+                                Issued Under Cryptographic Bullion Verification Registry</p>
+                        </div>
+
+                        <div class="text-center my-6 space-y-4">
+                            <p class="text-xs italic text-slate-500">Sertifikat ini dengan sah menerangkan status
+                                komoditas komersial:</p>
+                            <h3 id="certStatusMsg"
+                                class="text-xl font-bold text-slate-900 tracking-wide font-serif border-b border-slate-200 inline-block px-6 pb-1">
+                                -</h3>
+
+                            <p class="text-xs text-slate-600 max-w-md mx-auto">
+                                Logam mulia dengan nomor identifikasi terlampir di bawah dinyatakan terdaftar secara
+                                absah pada sistem basis data terdistribusi EVM.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 text-xs text-slate-600 border-t border-slate-200 pt-6 px-4">
+                            <div class="space-y-1">
+                                <p><span class="font-medium text-slate-400 uppercase text-[9px] block">Production
+                                        Batch</span> <span id="certBatch" class="font-semibold text-slate-800">-</span>
+                                </p>
+                                <p><span class="font-medium text-slate-400 uppercase text-[9px] block">Block
+                                        Timestamp</span> <span id="certDate"
+                                        class="font-semibold text-slate-800">-</span></p>
+                            </div>
+                            <div class="space-y-1 font-mono text-right flex flex-col justify-end items-end">
+                                <p class="text-[9px] text-slate-400 uppercase">Serial Number</p>
+                                <span id="certSerial"
+                                    class="text-sm font-bold text-indigo-900 tracking-wider bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-md">-</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex justify-between items-center mt-6 pt-4 border-t border-dashed border-slate-200">
+                            <div class="text-[8px] text-slate-400 font-mono">
+                                SECURITY LEVEL: HIGH_EVM_PROOF<br>
+                                ENGINE_VER: VERIFIKASI_EMAS_PRO
+                            </div>
+                            <div id="certStamp"
+                                class="w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-bold text-[9px] uppercase tracking-tighter font-serif rotate-[-12deg] shadow-sm transition">
+                                <span id="stampText">PENDING</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // 1. ISI ALAMAT SMART CONTRACT HASIL DEPLOY DI REMIX DI SINI:
+        const contractAddress = "0x5d030BBd9bC2dDf9Eab4ba1Ad0D1864cb9F6fcC1";
+
+        // ABI yang disesuaikan persis dengan fungsi VerifikasiEmasPro
+        const contractABI = [
+            "function admin() public view returns (address)",
+            "function isPaused() public view returns (bool)",
+            "function togglePause() external",
+            "function daftarkanEmas(string memory _serialNumber, string memory _batch) external",
+            "function batalkanEmas(string memory _serialNumber) external",
+            "function cekKeaslian(string memory _serialNumber) external view returns (bool terdaftar, string memory pesanStatus, string memory batch, uint256 waktuDaftar)"
+        ];
+
+        let provider, signer, contract;
+
+        // ==========================================
+        // FITUR BARU: Event Listener MetaMask
+        // ==========================================
+        if (typeof window.ethereum !== "undefined") {
+            // 1. Deteksi jika user ganti akun di MetaMask
+            window.ethereum.on('accountsChanged', function (accounts) {
+                if (accounts.length > 0) {
+                    console.log('Akun berganti menjadi:', accounts[0]);
+                    window.location.reload(); // Refresh halaman agar state Ethers.js bersih
+                } else {
+                    console.log('Wallet terputus.');
+                    window.location.reload();
+                }
+            });
+
+            // 2. Deteksi jika user ganti jaringan (Network)
+            window.ethereum.on('chainChanged', function (chainId) {
+                console.log('Jaringan berubah, me-refresh...');
+                window.location.reload();
+            });
+
+            // 3. Auto-cek apakah sudah pernah connect sebelumnya saat halaman dimuat
+            window.addEventListener('load', async () => {
+                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                if (accounts.length > 0) {
+                    // Jika sudah ada akun yang terhubung, otomatis jalankan connectWallet
+                    connectWallet();
+                }
+            });
+        }
+
+        // Koneksi ke MetaMask
+        async function connectWallet() {
+            if (typeof window.ethereum !== "undefined") {
+                try {
+                    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+                    provider = new ethers.BrowserProvider(window.ethereum);
+                    signer = await provider.getSigner();
+                    contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+                    document.getElementById("btnConnect").innerText = "Wallet Connected";
+                    document.getElementById("btnConnect").className = "bg-slate-800 text-slate-400 text-sm font-semibold py-2 px-5 rounded-xl border border-slate-700";
+                    document.getElementById("walletLabel").innerText = `Connected: ${accounts[0]}`;
+                } catch (error) { console.error(error); }
+            } else { alert("Silakan install MetaMask!"); }
+        }
+
+        // Fungsi Minting Pendaftaran Emas (2 Parameter sesuai Kontrak)
+        async function buatSertifikatEmas() {
+            if (!contract) return alert("Hubungkan wallet terlebih dahulu!");
+
+            const sn = document.getElementById("addSerial").value;
+            const batch = document.getElementById("addBatch").value;
+
+            if (!sn || !batch) return alert("Mohon lengkapi kolom Serial Number dan Batch!");
+
+            showToast("Memproses persetujuan transaksi di MetaMask...", "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20");
+            try {
+                const tx = await contract.daftarkanEmas(sn, batch);
+                showToast("Menulis blok transaksi ke blockchain Sepolia...", "bg-amber-500/10 text-amber-400 border border-amber-500/20");
+                await tx.wait();
+                showToast("Sukses! Emas berhasil didaftarkan secara permanen.", "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20");
+
+                document.getElementById("addSerial").value = "";
+                document.getElementById("addBatch").value = "";
+            } catch (error) {
+                console.error(error);
+                showToast("Transaksi Gagal/Reverted. Pastikan Anda Admin dan ID belum terdaftar.", "bg-red-500/10 text-red-400 border border-red-500/20");
+            }
+        }
+
+        // Fungsi Query/Membaca Data Tuple Kriptografi Kontrak (Versi Fix Array Index)
+        async function cekKeaslianEmas() {
+            if (!contract) return alert("Hubungkan wallet terlebih dahulu!");
+            const sn = document.getElementById("querySerial").value;
+            if (!sn) return alert("Masukkan Nomor Seri Emas!");
+
+            showToast("Mencari data di blockchain Sepolia...", "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20");
+
+            try {
+                const res = await contract.cekKeaslian(sn);
+
+                // Membaca output Tuple Solidity berdasarkan urutan parameter (Array Index)
+                const terdaftar = res[0]; // bool terdaftar
+                const pesanStatus = res[1]; // string memory pesanStatus
+                const batch = res[2]; // string memory batch
+                const waktuDaftar = res[3]; // uint256 waktuDaftar
+
+                // Sembunyikan placeholder, tampilkan lembar sertifikat
+                document.getElementById("placeholderView").classList.add("hidden");
+                document.getElementById("certificateSheet").classList.remove("hidden");
+
+                // Render teks ke template dokumen visual
+                document.getElementById("certSerial").innerText = sn;
+                document.getElementById("certStatusMsg").innerText = pesanStatus;
+                document.getElementById("certBatch").innerText = terdaftar ? batch : "N/A";
+
+                // Konversi format waktu unix epoch ke String Tanggal lokal Indonesia
+                if (terdaftar && waktuDaftar > 0) {
+                    const date = new Date(Number(waktuDaftar) * 1000);
+                    document.getElementById("certDate").innerText = date.toLocaleString('id-ID') + " WITA";
+                } else {
+                    document.getElementById("certDate").innerText = "N/A";
+                }
+
+                const stamp = document.getElementById("certStamp");
+                const stampTxt = document.getElementById("stampText");
+
+                // Logika Penentuan Gaya Visual Cap Segel Dokumen
+                if (!terdaftar) {
+                    stampTxt.innerText = "INVALID";
+                    stamp.className = "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-bold text-[10px] uppercase tracking-tighter font-serif rotate-[-12deg] border-red-500 text-red-500 bg-red-50/50";
+                    showToast("Pencarian selesai: Sertifikat TIDAK TERDAFTAR / PALSU!", "bg-red-500/10 text-red-400 border border-red-500/20");
+                } else if (pesanStatus.includes("PERINGATAN") || pesanStatus.includes("DIBATALKAN")) {
+                    stampTxt.innerText = "REVOKED";
+                    stamp.className = "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-bold text-[10px] uppercase tracking-tighter font-serif rotate-[-12deg] border-amber-500 text-amber-500 bg-amber-50/50";
+                    showToast("Peringatan: Sertifikat telah ditarik/dibekukan!", "bg-amber-500/10 text-amber-400 border border-amber-500/20");
+                } else {
+                    stampTxt.innerText = "VERIFIED";
+                    stamp.className = "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-bold text-[10px] uppercase tracking-tighter font-serif rotate-[-12deg] border-emerald-600 text-emerald-600 bg-emerald-50/50";
+                    showToast("Pencarian selesai: Emas Valid & Terverifikasi!", "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20");
+                }
+            } catch (error) {
+                console.error(error);
+                showToast("Gagal membaca data dari blockchain. Pastikan Alamat Kontrak benar.", "bg-red-500/10 text-red-400 border border-red-500/20");
+            }
+        }
+
+        // Fungsi Membatalkan Validasi Emas (Fungsi Khusus Otoritas Admin)
+        async function ubahStatusValidasi() {
+            if (!contract) return alert("Hubungkan wallet!");
+            const sn = document.getElementById("statusSerial").value;
+            if (!sn) return alert("Masukkan ID Serial!");
+
+            showToast("Mengirim perintah pembatalan (batalkanEmas)...", "bg-amber-500/10 text-amber-400 border border-amber-500/20");
+            try {
+                const tx = await contract.batalkanEmas(sn);
+                await tx.wait();
+                showToast("Sukses! Status emas berhasil dibatalkan (Revoked).", "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20");
+                document.getElementById("statusSerial").value = "";
+            } catch (error) {
+                console.error(error);
+                showToast("Gagal! Pastikan Anda memegang akun Admin kontrak.", "bg-red-500/10 text-red-400 border border-red-500/20");
+            }
+        }
+
+        function showToast(msg, classes) {
+            const el = document.getElementById("toastMessage");
+            el.className = `mt-4 p-3 rounded-xl text-xs text-center border ${classes}`;
+            el.innerText = msg;
+            el.classList.remove("hidden");
+        }
+    </script>
+</body>
+
+</html>
