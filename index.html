@@ -18,38 +18,6 @@
       .gold-font {
         font-family: "Cinzel", serif;
       }
-
-      /* Custom scrollbar untuk log activity agar tetap rapi */
-      #activityLogContainer::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      #activityLogContainer::-webkit-scrollbar-track {
-        background: #0b0c14;
-      }
-
-      #activityLogContainer::-webkit-scrollbar-thumb {
-        background: #1e293b;
-        border-radius: 2px;
-      }
-
-      #blockchainContainer::-webkit-scrollbar {
-        height: 6px;
-      }
-
-      #blockchainContainer::-webkit-scrollbar-track {
-        background: #0b0c14;
-        border-radius: 10px;
-      }
-
-      #blockchainContainer::-webkit-scrollbar-thumb {
-        background: #1e293b;
-        border-radius: 10px;
-      }
-
-      #blockchainContainer::-webkit-scrollbar-thumb:hover {
-        background: #334155;
-      }
     </style>
   </head>
 
@@ -57,16 +25,16 @@
     class="bg-[#0b0c14] text-slate-200 min-h-screen flex flex-col items-center p-4 md:p-8"
   >
     <header
-      class="w-full max-w-7xl flex flex-col sm:flex-row justify-between items-center bg-[#131524] border border-slate-800 rounded-2xl px-6 py-4 mb-6 gap-4"
+      class="w-full max-w-6xl flex flex-col sm:flex-row justify-between items-center bg-[#131524] border border-slate-800 rounded-2xl px-6 py-4 mb-6 gap-4"
     >
       <div class="flex items-center gap-3">
-        <span class="text-2xl">👑</span>
+        <span class="text-2xl">🏆</span>
         <div>
           <h1 class="text-xl font-bold tracking-tight text-white">GoldChain</h1>
           <p class="text-xs text-slate-400">PREMIUM ASSET REGISTRY</p>
         </div>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex flex-wrap items-center gap-3">
         <span
           class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-2"
         >
@@ -77,7 +45,7 @@
         </span>
         <button
           id="btnConnect"
-          onclick="handleWalletAction()"
+          onclick="connectWallet()"
           class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-5 rounded-xl transition duration-200 cursor-pointer shadow-lg shadow-indigo-600/20"
         >
           Connect Wallet
@@ -85,8 +53,8 @@
       </div>
     </header>
 
-    <main class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-6">
-      <div class="space-y-6 lg:col-span-1">
+    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="space-y-6">
         <div class="bg-[#131524] border border-slate-800 p-5 rounded-2xl">
           <h3
             class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-4"
@@ -114,7 +82,7 @@
           <div class="flex items-center justify-between mb-4">
             <span
               class="text-xs font-bold text-slate-400 tracking-wider uppercase"
-              >👑 Minting Panel</span
+              >🏭 Minting Panel</span
             >
             <span
               class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-md"
@@ -282,10 +250,10 @@
           >
             <span
               class="text-xs font-bold text-slate-400 tracking-wider uppercase"
-              >👑 Gold Certificate Preview</span
+              >👁️ Gold Certificate Preview</span
             >
             <span
-              class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-md font-mono"
+              class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-md font-mono animate-pulse"
               >LIVE ON-CHAIN RENDERING</span
             >
           </div>
@@ -294,7 +262,7 @@
             class="p-6 md:p-10 flex justify-center items-center bg-[#0e101b] min-h-[420px]"
           >
             <div id="placeholderView" class="text-center space-y-3">
-              <div class="text-4xl text-slate-600">📁</div>
+              <div class="text-4xl text-slate-600">📄</div>
               <p class="text-sm font-semibold text-slate-400">
                 No Certificate Loaded
               </p>
@@ -306,20 +274,20 @@
 
             <div
               id="certificateSheet"
-              class="w-full bg-[#faf9f5] text-slate-900 rounded-xl p-8 relative shadow-2xl border-[14px] border-double border-amber-600/20 hidden flex-col justify-between min-h-[460px] transition-all duration-300"
+              class="w-full max-w-2xl bg-[#faf9f5] text-slate-900 rounded-lg p-8 relative shadow-2xl border-[12px] border-double border-amber-600/20 hidden flex-col justify-between min-h-[460px]"
             >
               <div
-                class="absolute top-3 left-4 text-[9px] text-amber-800/20 font-serif tracking-widest select-none"
+                class="absolute top-2 left-2 text-[10px] text-amber-800/10 font-serif"
               >
                 SECURE DECENTRALIZED LEDGER
               </div>
               <div
-                class="absolute bottom-3 right-4 text-[9px] text-amber-800/20 font-serif tracking-widest select-none"
+                class="absolute bottom-2 right-2 text-[10px] text-amber-800/10 font-serif"
               >
                 GOLDCHAIN PRO ENGINE
               </div>
 
-              <div class="text-center space-y-2 mt-2">
+              <div class="text-center space-y-2 mt-4">
                 <span class="text-3xl">👑</span>
                 <h2
                   class="gold-font text-2xl font-bold tracking-wider text-amber-800"
@@ -327,111 +295,98 @@
                   OFFICIAL CERTIFICATE OF AUTHENTICITY
                 </h2>
                 <p
-                  class="text-[10px] tracking-widest font-semibold text-slate-400 uppercase border-b border-slate-200 pb-4 max-w-md mx-auto"
+                  class="text-[10px] tracking-widest font-semibold text-slate-500 uppercase border-b border-slate-300 pb-4 max-w-md mx-auto"
                 >
                   Issued Under Cryptographic Bullion Verification Registry
                 </p>
               </div>
 
               <div class="text-center my-4 space-y-3">
-                <p class="text-[11px] italic text-slate-500 font-serif">
+                <p class="text-xs italic text-slate-500">
                   Sertifikat ini menerangkan bahwa aset komoditas dimiliki oleh:
                 </p>
-                <div
-                  class="inline-block bg-indigo-50 border border-indigo-100/80 rounded-xl px-10 py-2.5 shadow-sm"
+                <h3
+                  id="certPemilik"
+                  class="text-lg font-bold text-indigo-900 uppercase tracking-widest border border-indigo-100 bg-indigo-50 inline-block px-4 py-1.5 rounded-md"
                 >
-                  <span
-                    id="certPemilik"
-                    class="text-base font-bold text-indigo-950 tracking-wide font-sans uppercase"
-                    >-</span
-                  >
-                </div>
+                  -
+                </h3>
+                <br />
                 <h3
                   id="certStatusMsg"
-                  class="text-lg font-extrabold text-slate-800 tracking-wider font-serif pt-1 block uppercase"
+                  class="text-lg font-bold text-slate-900 tracking-wide font-serif border-b border-slate-200 inline-block px-6 pb-1 mt-2"
                 >
                   -
                 </h3>
               </div>
 
               <div
-                class="grid grid-cols-12 gap-4 border-t border-slate-200 pt-4 px-2 text-[11px]"
+                class="grid grid-cols-2 gap-4 text-xs text-slate-600 border-t border-slate-200 pt-5 px-4"
               >
-                <div class="col-span-7 space-y-3 text-slate-600">
-                  <div>
+                <div class="space-y-2">
+                  <p>
                     <span
-                      class="font-bold text-slate-400 uppercase text-[9px] block tracking-wider"
+                      class="font-medium text-slate-400 uppercase text-[9px] block"
                       >Production Batch</span
                     >
-                    <span
-                      id="certBatch"
-                      class="font-bold text-slate-800 text-xs"
+                    <span id="certBatch" class="font-semibold text-slate-800"
                       >-</span
                     >
-                  </div>
-                  <div class="flex gap-8">
-                    <div>
+                  </p>
+                  <div class="flex gap-6">
+                    <p>
                       <span
-                        class="font-bold text-slate-400 uppercase text-[9px] block tracking-wider"
+                        class="font-medium text-slate-400 uppercase text-[9px] block"
                         >Berat (Weight)</span
                       >
-                      <span
-                        id="certBerat"
-                        class="font-bold text-slate-800 text-xs"
+                      <span id="certBerat" class="font-semibold text-slate-800"
                         >-</span
                       >
-                    </div>
-                    <div>
+                    </p>
+                    <p>
                       <span
-                        class="font-bold text-slate-400 uppercase text-[9px] block tracking-wider"
+                        class="font-medium text-slate-400 uppercase text-[9px] block"
                         >Kadar Karat</span
                       >
-                      <span
-                        id="certKarat"
-                        class="font-bold text-slate-800 text-xs"
+                      <span id="certKarat" class="font-semibold text-slate-800"
                         >-</span
                       >
-                    </div>
+                    </p>
                   </div>
-                  <div>
+                  <p>
                     <span
-                      class="font-bold text-slate-400 uppercase text-[9px] block tracking-wider"
+                      class="font-medium text-slate-400 uppercase text-[9px] block"
                       >Block Timestamp</span
                     >
-                    <span
-                      id="certDate"
-                      class="font-bold text-slate-800 font-mono text-xs"
+                    <span id="certDate" class="font-semibold text-slate-800"
                       >-</span
                     >
-                  </div>
+                  </p>
                 </div>
                 <div
-                  class="col-span-5 flex flex-col justify-start items-end font-mono"
+                  class="space-y-1 font-mono text-right flex flex-col justify-end items-end"
                 >
-                  <span
-                    class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1"
-                    >Serial Number</span
-                  >
+                  <p class="text-[9px] text-slate-400 uppercase">
+                    Serial Number
+                  </p>
                   <span
                     id="certSerial"
-                    class="text-xs font-bold text-indigo-900 tracking-widest bg-indigo-50 border border-indigo-100 px-4 py-2 rounded-xl shadow-sm"
+                    class="text-sm font-bold text-indigo-900 tracking-wider bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-md"
                     >-</span
                   >
                 </div>
               </div>
 
               <div
-                class="flex justify-between items-center mt-4 pt-3 border-t border-dashed border-slate-200"
+                class="flex justify-between items-center mt-6 pt-4 border-t border-dashed border-slate-200"
               >
-                <div
-                  class="text-[8px] text-slate-400 font-mono leading-relaxed select-none"
-                >
+                <div class="text-[8px] text-slate-400 font-mono">
                   SECURITY LEVEL: HIGH_EVM_PROOF<br />
                   ENGINE_VER: VERIFIKASI_EMAS_PRO_V2
                 </div>
                 <div
                   id="certStamp"
-                  class="w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-black text-[10px] uppercase tracking-wider font-serif rotate-[-12deg] shadow-md transition-all duration-300"
+                  class="w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-bold text-[9px] uppercase tracking-tighter font-serif rotate-[-12deg] shadow-sm transition"
                 >
                   <span id="stampText">PENDING</span>
                 </div>
@@ -440,42 +395,13 @@
           </div>
         </div>
       </div>
-
-      <div class="lg:col-span-1 space-y-2">
-        <div
-          class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3"
-        >
-          <div class="flex items-center gap-2">
-            <span class="text-indigo-400">🔗</span>
-            <h3
-              class="text-sm font-bold text-slate-200 tracking-wider uppercase font-mono"
-            >
-              Rantai Blok (Live Ledger Visualizer)
-            </h3>
-          </div>
-          <span
-            class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-md font-mono"
-            >EVM SEPOLIA SYNC</span
-          >
-        </div>
-
-        <div
-          id="blockchainContainer"
-          class="flex items-center gap-4 overflow-x-auto pb-3 pt-2 scrollbar-thin"
-        >
-          <div
-            id="emptyBlockView"
-            class="w-full text-center py-6 text-slate-500 text-xs font-mono"
-          >
-            Menunggu interaksi blockchain untuk merender visualisasi blok...
-          </div>
-        </div>
-      </div>
     </main>
 
     <script>
-      const contractAddress = "0x387483FE612A0b38dA7C547348e1cAeB13552075";
+      // 1. PASTIKAN ALAMAT KONTRAK INI ADALAH ALAMAT HASIL DEPLOY SMART CONTRACT YANG BARU
+      const contractAddress = "0xebF0D7886Af7FB633872C37f1528920e724bA5Dc";
 
+      // 2. ABI DIPERBARUI: Menyesuaikan parameter baru (berat, karat, namaPemilik)
       const contractABI = [
         "function isPaused() public view returns (bool)",
         "function togglePause() external",
@@ -486,28 +412,28 @@
       ];
 
       let provider, signer, contract;
-      let isConnected = false;
 
       if (typeof window.ethereum !== "undefined") {
         window.ethereum.on("accountsChanged", function (accounts) {
-          if (accounts.length > 0 && isConnected) {
-            syncWalletState(accounts[0]);
+          if (accounts.length > 0) {
+            window.location.reload();
           } else {
-            disconnectWalletVisual();
+            window.location.reload();
           }
         });
 
         window.ethereum.on("chainChanged", function (chainId) {
           window.location.reload();
         });
-      }
 
-      async function handleWalletAction() {
-        if (!isConnected) {
-          await connectWallet();
-        } else {
-          await disconnectWallet();
-        }
+        window.addEventListener("load", async () => {
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
+          if (accounts.length > 0) {
+            connectWallet();
+          }
+        });
       }
 
       async function connectWallet() {
@@ -524,104 +450,21 @@
               signer,
             );
 
-            isConnected = true;
-            syncWalletState(accounts[0]);
-            addActivityLog(
-              "Connect Wallet",
-              "success",
-              `Addr: ${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`,
-            );
+            document.getElementById("btnConnect").innerText =
+              "Wallet Connected";
+            document.getElementById("btnConnect").className =
+              "bg-slate-800 text-slate-400 text-sm font-semibold py-2 px-5 rounded-xl border border-slate-700";
+            document.getElementById("walletLabel").innerText =
+              `Connected: ${accounts[0]}`;
           } catch (error) {
             console.error(error);
           }
         } else {
-          alert("Silakan pasang extension MetaMask di browsermu!");
+          alert("Silakan install MetaMask!");
         }
       }
 
-      async function disconnectWallet() {
-        try {
-          await window.ethereum.request({
-            method: "wallet_revokePermissions",
-            params: [{ eth_accounts: {} }],
-          });
-        } catch (error) {
-          console.log("Sistem revoke izin ditolak browser.");
-        }
-        addActivityLog("Disconnect", "failed", "Koneksi wallet dihentikan.");
-        disconnectWalletVisual();
-      }
-
-      function syncWalletState(account) {
-        const btn = document.getElementById("btnConnect");
-        btn.innerText = "Disconnect Wallet";
-        btn.className =
-          "bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-2 px-5 rounded-xl border border-red-700 transition duration-200 cursor-pointer shadow-lg shadow-red-600/20";
-        document.getElementById("walletLabel").innerText =
-          `Connected: ${account}`;
-      }
-
-      function disconnectWalletVisual() {
-        isConnected = false;
-        provider = null;
-        signer = null;
-        contract = null;
-
-        const btn = document.getElementById("btnConnect");
-        btn.innerText = "Connect Wallet";
-        btn.className =
-          "bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-5 rounded-xl transition duration-200 cursor-pointer shadow-lg shadow-indigo-600/20";
-
-        document.getElementById("walletLabel").innerText =
-          "Wallet Not Connected";
-        document.getElementById("placeholderView").classList.remove("hidden");
-        document.getElementById("certificateSheet").classList.add("hidden");
-      }
-
-      // ================= INTERACTIVE DAPP SIDEBAR LOG SYSTEM =================
-      function addActivityLog(actionName, status, details) {
-        const container = document.getElementById("activityLogContainer");
-        const emptyView = document.getElementById("emptyLogView");
-
-        if (emptyView) emptyView.remove();
-
-        let statusColor = "text-amber-400 bg-amber-500/10 border-amber-500/20";
-        let statusText = "Memproses";
-
-        if (status === "success") {
-          statusColor =
-            "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
-          statusText = "Sukses";
-        } else if (status === "failed") {
-          statusColor = "text-red-400 bg-red-500/10 border-red-500/20";
-          statusText = "Gagal";
-        }
-
-        const timeNow =
-          new Date().toLocaleTimeString("id-ID", {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }) + " WITA";
-
-        const logItem = document.createElement("div");
-        logItem.className =
-          "p-3 bg-[#0b0c14] border border-slate-800/80 rounded-xl space-y-2 transition-all duration-200 hover:border-slate-700";
-        logItem.innerHTML = `
-                <div class="flex justify-between items-center">
-                    <span class="font-bold text-slate-200 text-[11px] tracking-wide">${actionName}</span>
-                    <span class="text-[9px] px-1.5 py-0.5 rounded border ${statusColor} font-sans font-medium">${statusText}</span>
-                </div>
-                <div class="text-[10px] text-slate-400 break-all leading-normal">${details}</div>
-                <div class="text-[9px] text-slate-600 text-right">${timeNow}</div>
-            `;
-
-        container.insertBefore(logItem, container.firstChild);
-        document.getElementById("logCount").innerText =
-          `${container.children.length} Event`;
-      }
-
-      // ================= TRANSAKSIONAL WRITE & READ METHODS =================
+      // FUNGSI MINTING DIPERBARUI: Menerima 5 parameter
       async function buatSertifikatEmas() {
         if (!contract) return alert("Hubungkan wallet terlebih dahulu!");
 
@@ -632,20 +475,17 @@
         const pemilik = document.getElementById("addPemilik").value;
 
         if (!sn || !batch || !berat || !karat || !pemilik) {
-          return alert("Mohon lengkapi semua kolom!");
+          return alert(
+            "Mohon lengkapi semua kolom (Serial, Batch, Berat, Karat, Pemilik)!",
+          );
         }
 
         showToast(
           "Memproses persetujuan transaksi di MetaMask...",
           "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
         );
-        addActivityLog(
-          "Issue Certificate",
-          "pending",
-          `Mengirim SN: ${sn} ke EVM`,
-        );
-
         try {
+          // Menambahkan argument berat, karat, pemilik ke pemanggilan smart contract
           const tx = await contract.daftarkanEmas(
             sn,
             batch,
@@ -657,23 +497,13 @@
             "Menulis blok transaksi ke blockchain Sepolia...",
             "bg-amber-500/10 text-amber-400 border border-amber-500/20",
           );
-          addActivityLog(
-            "Issue Certificate",
-            "pending",
-            `Tx Hash: ${tx.hash.substring(0, 16)}... Menunggu block confirmation.`,
-          );
-
-          const receipt = await tx.wait();
+          await tx.wait();
           showToast(
             "Sukses! Emas berhasil didaftarkan secara permanen.",
             "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
           );
-          addActivityLog(
-            "Issue Certificate",
-            "success",
-            `SN: ${sn} berhasil dicatat pada block #${receipt.blockNumber}`,
-          );
 
+          // Clear input
           document.getElementById("addSerial").value = "";
           document.getElementById("addBatch").value = "";
           document.getElementById("addBerat").value = "";
@@ -682,17 +512,13 @@
         } catch (error) {
           console.error(error);
           showToast(
-            "Transaksi Gagal.",
+            "Transaksi Gagal. Pastikan Anda Admin dan ID belum terdaftar.",
             "bg-red-500/10 text-red-400 border border-red-500/20",
-          );
-          addActivityLog(
-            "Issue Certificate",
-            "failed",
-            "Ditolak / Kehabisan Gas.",
           );
         }
       }
 
+      // FUNGSI BARU: Mengubah Kepemilikan
       async function updatePemilikEmas() {
         if (!contract) return alert("Hubungkan wallet terlebih dahulu!");
 
@@ -708,12 +534,6 @@
           "Mengirim perintah update nama pemilik...",
           "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
         );
-        addActivityLog(
-          "Transfer Owner",
-          "pending",
-          `Request pemindahan hak milik SN: ${sn}`,
-        );
-
         try {
           const tx = await contract.updatePemilik(sn, pemilikBaru);
           await tx.wait();
@@ -721,28 +541,19 @@
             "Sukses! Kepemilikan emas berhasil dipindahtangankan.",
             "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
           );
-          addActivityLog(
-            "Transfer Owner",
-            "success",
-            `SN ${sn} dialihkan ke: ${pemilikBaru}`,
-          );
 
           document.getElementById("transferSerial").value = "";
           document.getElementById("transferPemilikBaru").value = "";
         } catch (error) {
           console.error(error);
           showToast(
-            "Gagal mengubah pemilik!",
+            "Gagal! Pastikan status emas aktif dan Anda adalah Admin.",
             "bg-red-500/10 text-red-400 border border-red-500/20",
-          );
-          addActivityLog(
-            "Transfer Owner",
-            "failed",
-            `Akses ditolak untuk SN: ${sn}`,
           );
         }
       }
 
+      // FUNGSI QUERY DIPERBARUI: Membaca 7 parameter pengembalian (Tuple)
       async function cekKeaslianEmas() {
         if (!contract) return alert("Hubungkan wallet terlebih dahulu!");
         const sn = document.getElementById("querySerial").value;
@@ -752,14 +563,11 @@
           "Mencari data di blockchain Sepolia...",
           "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
         );
-        addActivityLog(
-          "Query Registry",
-          "pending",
-          `Membaca status on-chain SN: ${sn}`,
-        );
 
         try {
           const res = await contract.cekKeaslian(sn);
+
+          // Membaca output Tuple Solidity yang baru (Urutan Index)
           const terdaftar = res[0];
           const pesanStatus = res[1];
           const batch = res[2];
@@ -769,11 +577,14 @@
           const waktuDaftar = res[6];
 
           document.getElementById("placeholderView").classList.add("hidden");
-          const certSheet = document.getElementById("certificateSheet");
-          certSheet.classList.remove("hidden");
-          certSheet.classList.add("flex");
+          document
+            .getElementById("certificateSheet")
+            .classList.remove("hidden");
 
+          // Render data ke dokumen visual
           document.getElementById("certSerial").innerText = sn;
+          document.getElementById("certStatusMsg").innerText = pesanStatus;
+
           document.getElementById("certBatch").innerText = terdaftar
             ? batch
             : "N/A";
@@ -797,65 +608,39 @@
 
           const stamp = document.getElementById("certStamp");
           const stampTxt = document.getElementById("stampText");
-          const statusMsg = document.getElementById("certStatusMsg");
 
           if (!terdaftar) {
-            statusMsg.innerText = "INVALID / PALSU";
-            statusMsg.className =
-              "text-lg font-extrabold text-red-600 tracking-wider font-serif pt-1 block uppercase";
             stampTxt.innerText = "INVALID";
             stamp.className =
-              "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-black text-[10px] uppercase tracking-wider font-serif rotate-[-12deg] border-red-500 text-red-500 bg-red-50/60 scale-105 shadow-sm";
+              "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-bold text-[10px] uppercase tracking-tighter font-serif rotate-[-12deg] border-red-500 text-red-500 bg-red-50/50";
             showToast(
-              "Sertifikat TIDAK TERDAFTAR / PALSU!",
+              "Pencarian selesai: Sertifikat TIDAK TERDAFTAR / PALSU!",
               "bg-red-500/10 text-red-400 border border-red-500/20",
-            );
-            addActivityLog(
-              "Query Registry",
-              "failed",
-              `Pencarian # ${sn} ilegal/tidak ada.`,
             );
           } else if (
             pesanStatus.includes("PERINGATAN") ||
-            pesanStatus.includes("DIBATALKAN") ||
-            pesanStatus.includes("REVOKED")
+            pesanStatus.includes("DIBATALKAN")
           ) {
-            statusMsg.innerText = "REVOKED / DIBATALKAN";
-            statusMsg.className =
-              "text-lg font-extrabold text-amber-600 tracking-wider font-serif pt-1 block uppercase";
             stampTxt.innerText = "REVOKED";
             stamp.className =
-              "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-black text-[10px] uppercase tracking-wider font-serif rotate-[-12deg] border-amber-500 text-amber-500 bg-amber-50/60 scale-105 shadow-sm";
+              "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-bold text-[10px] uppercase tracking-tighter font-serif rotate-[-12deg] border-amber-500 text-amber-500 bg-amber-50/50";
             showToast(
               "Peringatan: Sertifikat telah ditarik/dibekukan!",
               "bg-amber-500/10 text-amber-400 border border-amber-500/20",
             );
-            addActivityLog(
-              "Query Registry",
-              "success",
-              `SN ${sn} ditemukan dalam kondisi REVOKED.`,
-            );
           } else {
-            statusMsg.innerText = "VALID & ASLI";
-            statusMsg.className =
-              "text-lg font-extrabold text-emerald-600 tracking-wider font-serif pt-1 block uppercase";
             stampTxt.innerText = "VERIFIED";
             stamp.className =
-              "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-black text-[10px] uppercase tracking-wider font-serif rotate-[-12deg] border-emerald-600 text-emerald-600 bg-emerald-50/60 scale-105 shadow-sm";
+              "w-20 h-20 rounded-full border-4 flex flex-col items-center justify-center font-bold text-[10px] uppercase tracking-tighter font-serif rotate-[-12deg] border-emerald-600 text-emerald-600 bg-emerald-50/50";
             showToast(
               "Pencarian selesai: Emas Valid & Terverifikasi!",
               "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
-            );
-            addActivityLog(
-              "Query Registry",
-              "success",
-              `SN ${sn} terbukti VALID.`,
             );
           }
         } catch (error) {
           console.error(error);
           showToast(
-            "Gagal membaca data dari blockchain.",
+            "Gagal membaca data dari blockchain. Pastikan Alamat Kontrak benar.",
             "bg-red-500/10 text-red-400 border border-red-500/20",
           );
         }
@@ -870,12 +655,6 @@
           "Mengirim perintah pembatalan (batalkanEmas)...",
           "bg-amber-500/10 text-amber-400 border border-amber-500/20",
         );
-        addActivityLog(
-          "Revoke Card",
-          "pending",
-          `Proses pembatalan hak cetak SN: ${sn}`,
-        );
-
         try {
           const tx = await contract.batalkanEmas(sn);
           await tx.wait();
@@ -883,22 +662,12 @@
             "Sukses! Status emas berhasil dibatalkan (Revoked).",
             "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
           );
-          addActivityLog(
-            "Revoke Card",
-            "success",
-            `SN: ${sn} resmi dibekukan dari sistem.`,
-          );
           document.getElementById("statusSerial").value = "";
         } catch (error) {
           console.error(error);
           showToast(
             "Gagal! Pastikan Anda memegang akun Admin kontrak.",
             "bg-red-500/10 text-red-400 border border-red-500/20",
-          );
-          addActivityLog(
-            "Revoke Card",
-            "failed",
-            `Gagal menonaktifkan SN: ${sn}`,
           );
         }
       }
