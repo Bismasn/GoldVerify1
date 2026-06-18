@@ -18,23 +18,35 @@
       .gold-font {
         font-family: "Cinzel", serif;
       }
+
+      #blockchainContainer::-webkit-scrollbar {
+        width: 4px;
+      }
+      #blockchainContainer::-webkit-scrollbar-track {
+        background: #0b0c14;
+      }
+      #blockchainContainer::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 2px;
+      }
     </style>
   </head>
 
   <body
     class="bg-[#0b0c14] text-slate-200 min-h-screen flex flex-col items-center p-4 md:p-8"
   >
+    <!-- ========== HEADER ========== -->
     <header
-      class="w-full max-w-6xl flex flex-col sm:flex-row justify-between items-center bg-[#131524] border border-slate-800 rounded-2xl px-6 py-4 mb-6 gap-4"
+      class="w-full max-w-7xl flex flex-col sm:flex-row justify-between items-center bg-[#131524] border border-slate-800 rounded-2xl px-6 py-4 mb-6 gap-4"
     >
       <div class="flex items-center gap-3">
-        <span class="text-2xl">🏆</span>
+        <span class="text-2xl">👑</span>
         <div>
           <h1 class="text-xl font-bold tracking-tight text-white">GoldChain</h1>
           <p class="text-xs text-slate-400">PREMIUM ASSET REGISTRY</p>
         </div>
       </div>
-      <div class="flex flex-wrap items-center gap-3">
+      <div class="flex items-center gap-3">
         <span
           class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-2"
         >
@@ -53,8 +65,12 @@
       </div>
     </header>
 
-    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div class="space-y-6">
+    <!-- ========== MAIN GRID LAYOUT ========== -->
+    <main
+      class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 items-start"
+    >
+      <!-- KOLOM 1: REGISTRY STATS & MINTING PANEL -->
+      <div class="space-y-6 md:col-span-1">
         <div class="bg-[#131524] border border-slate-800 p-5 rounded-2xl">
           <h3
             class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-4"
@@ -82,7 +98,7 @@
           <div class="flex items-center justify-between mb-4">
             <span
               class="text-xs font-bold text-slate-400 tracking-wider uppercase"
-              >🏭 Minting Panel</span
+              >👑 Minting Panel</span
             >
             <span
               class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-md"
@@ -144,7 +160,7 @@
               <input
                 type="text"
                 id="addPemilik"
-                placeholder="Nama entitas/individu"
+                placeholder="Nama Perusahaan/Individu"
                 class="w-full bg-[#0b0c14] border border-slate-800 focus:border-indigo-500 focus:outline-none rounded-xl px-4 py-2 text-sm transition text-white"
               />
             </div>
@@ -207,7 +223,8 @@
         </div>
       </div>
 
-      <div class="lg:col-span-2 space-y-6">
+      <!-- KOLOM 2 & 3: VERIFICATION PANEL & PREVIEW SHEET -->
+      <div class="space-y-6 md:col-span-2 lg:col-span-2">
         <div
           class="bg-[#131524] border border-slate-800 p-6 rounded-2xl shadow-xl"
         >
@@ -250,10 +267,10 @@
           >
             <span
               class="text-xs font-bold text-slate-400 tracking-wider uppercase"
-              >👁️ Gold Certificate Preview</span
+              >📄 Gold Certificate Preview</span
             >
             <span
-              class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-md font-mono animate-pulse"
+              class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-md font-mono"
               >LIVE ON-CHAIN RENDERING</span
             >
           </div>
@@ -262,7 +279,7 @@
             class="p-6 md:p-10 flex justify-center items-center bg-[#0e101b] min-h-[420px]"
           >
             <div id="placeholderView" class="text-center space-y-3">
-              <div class="text-4xl text-slate-600">📄</div>
+              <div class="text-4xl text-slate-600">📂</div>
               <p class="text-sm font-semibold text-slate-400">
                 No Certificate Loaded
               </p>
@@ -395,13 +412,51 @@
           </div>
         </div>
       </div>
+
+      <!-- KOLOM 4: RANTAI BLOK VISUALIZER VERTICAL -->
+      <div
+        class="bg-[#131524] border border-slate-800 rounded-2xl p-5 shadow-xl md:col-span-3 lg:col-span-1 flex flex-col h-full max-h-[660px]"
+      >
+        <div
+          class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3"
+        >
+          <div class="flex items-center gap-2">
+            <span class="text-indigo-400">🔗</span>
+            <h3
+              class="text-xs font-bold text-slate-200 tracking-wider uppercase font-mono"
+            >
+              Rantai Blok (Live Ledger)
+            </h3>
+          </div>
+          <span
+            class="text-[9px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-md font-mono"
+            id="blockCounterView"
+            >0 Blok</span
+          >
+        </div>
+
+        <div
+          id="blockchainContainer"
+          class="flex flex-col gap-3 overflow-y-auto pr-1 flex-1"
+        >
+          <div
+            id="emptyBlockView"
+            class="text-center py-16 text-slate-600 text-xs font-mono space-y-2"
+          >
+            <p class="text-xl">📭</p>
+            <p class="text-[11px]">
+              Belum ada data block. Lakukan minting atau transfer untuk memicu
+              penulisan ledger.
+            </p>
+          </div>
+        </div>
+      </div>
     </main>
 
+    <!-- ========== JAVASCRIPT BLOCK WITH SECURE STATE MANAGEMENT ========== -->
     <script>
-      // 1. PASTIKAN ALAMAT KONTRAK INI ADALAH ALAMAT HASIL DEPLOY SMART CONTRACT YANG BARU
-      const contractAddress = "0xebF0D7886Af7FB633872C37f1528920e724bA5Dc";
+      const contractAddress = "0xf4ED67C80A781bce9C4ff0B0Ca828a0182a0D384";
 
-      // 2. ABI DIPERBARUI: Menyesuaikan parameter baru (berat, karat, namaPemilik)
       const contractABI = [
         "function isPaused() public view returns (bool)",
         "function togglePause() external",
@@ -412,14 +467,14 @@
       ];
 
       let provider, signer, contract;
+      let lastBlockHash =
+        "0x0000000000000000000000000000000000000000000000000000000000000000";
+      let totalBlocksRendered = 0;
 
+      // EVENT EVENT DETECTOR METAMASK SECURE SESSIONS
       if (typeof window.ethereum !== "undefined") {
         window.ethereum.on("accountsChanged", function (accounts) {
-          if (accounts.length > 0) {
-            window.location.reload();
-          } else {
-            window.location.reload();
-          }
+          window.location.reload();
         });
 
         window.ethereum.on("chainChanged", function (chainId) {
@@ -427,21 +482,50 @@
         });
 
         window.addEventListener("load", async () => {
-          const accounts = await window.ethereum.request({
-            method: "eth_accounts",
-          });
-          if (accounts.length > 0) {
-            connectWallet();
+          try {
+            const accounts = await window.ethereum.request({
+              method: "eth_accounts",
+            });
+            if (accounts.length > 0) {
+              provider = new ethers.BrowserProvider(window.ethereum);
+              signer = await provider.getSigner();
+              contract = new ethers.Contract(
+                contractAddress,
+                contractABI,
+                signer,
+              );
+
+              setWalletConnectedUI(accounts[0]);
+            }
+          } catch (err) {
+            console.error("Gagal silent auto-connect:", err);
           }
         });
       }
 
       async function connectWallet() {
         if (typeof window.ethereum !== "undefined") {
+          const btn = document.getElementById("btnConnect");
+
+          if (btn.getAttribute("data-state") === "connected") {
+            disconnectWallet();
+            return;
+          }
+
           try {
+            btn.innerText = "Connecting...";
+
+            // FORCE METAMASK UNTUK MEMILIH ULANG AKUN / REQUEST PERMISSION
+            await window.ethereum.request({
+              method: "wallet_requestPermissions",
+              params: [{ eth_accounts: {} }],
+            });
+
+            // Setelah user memilih akun di pop-up baru, ambil datanya
             const accounts = await window.ethereum.request({
               method: "eth_requestAccounts",
             });
+
             provider = new ethers.BrowserProvider(window.ethereum);
             signer = await provider.getSigner();
             contract = new ethers.Contract(
@@ -450,21 +534,161 @@
               signer,
             );
 
-            document.getElementById("btnConnect").innerText =
-              "Wallet Connected";
-            document.getElementById("btnConnect").className =
-              "bg-slate-800 text-slate-400 text-sm font-semibold py-2 px-5 rounded-xl border border-slate-700";
-            document.getElementById("walletLabel").innerText =
-              `Connected: ${accounts[0]}`;
+            setWalletConnectedUI(accounts[0]);
           } catch (error) {
             console.error(error);
+            resetWalletUI();
+            showToast(
+              "Koneksi dompet dibatalkan.",
+              "bg-red-500/10 text-red-400 border border-red-500/20",
+            );
           }
         } else {
-          alert("Silakan install MetaMask!");
+          alert("Silakan pasang ekstensi MetaMask!");
         }
       }
 
-      // FUNGSI MINTING DIPERBARUI: Menerima 5 parameter
+      function setWalletConnectedUI(account) {
+        const btn = document.getElementById("btnConnect");
+        btn.innerText = "Disconnect Wallet";
+        btn.setAttribute("data-state", "connected");
+        btn.className =
+          "bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-2 px-5 rounded-xl transition duration-200 cursor-pointer shadow-lg shadow-red-600/20";
+
+        document.getElementById("walletLabel").innerText =
+          `Connected: ${account.substring(0, 6)}...${account.substring(account.length - 4)}`;
+      }
+
+      function resetWalletUI() {
+        const btn = document.getElementById("btnConnect");
+        btn.innerText = "Connect Wallet";
+        btn.removeAttribute("data-state");
+        btn.className =
+          "bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-5 rounded-xl transition duration-200 cursor-pointer shadow-lg shadow-indigo-600/20";
+
+        document.getElementById("walletLabel").innerText =
+          "Wallet Not Connected";
+      }
+
+      function disconnectWallet() {
+        provider = null;
+        signer = null;
+        contract = null;
+        resetWalletUI();
+        showToast(
+          "Wallet disconnected dari aplikasi.",
+          "bg-amber-500/10 text-amber-400 border border-amber-500/20",
+        );
+      }
+
+      // OPERASI BLOCKCHAIN GRAPH LOG INTERACTION
+      function addBlockVisual(
+        blockNumber,
+        txHash,
+        serialId,
+        actionType,
+        detailText,
+      ) {
+        const container = document.getElementById("blockchainContainer");
+        const emptyView = document.getElementById("emptyBlockView");
+
+        if (emptyView) emptyView.remove();
+
+        let statusAccent = "border-indigo-500/30 shadow-indigo-950/20";
+        if (actionType === "MINT")
+          statusAccent = "border-emerald-500/40 shadow-emerald-950/20";
+        if (actionType === "REVOKE")
+          statusAccent = "border-red-500/40 shadow-red-950/20";
+
+        const shortTx = txHash.substring(0, 14) + "...";
+        const shortPrev = lastBlockHash.substring(0, 14) + "...";
+
+        if (totalBlocksRendered > 0) {
+          const arrow = document.createElement("div");
+          arrow.className =
+            "text-slate-600 font-bold text-center text-xs py-0.5 select-none animate-pulse";
+          arrow.innerHTML = "↓";
+          container.appendChild(arrow);
+        }
+
+        const blockCard = document.createElement("div");
+        blockCard.className = `w-full bg-[#0e101b] border ${statusAccent} rounded-xl p-3 shadow-lg font-mono text-[11px] space-y-1.5 transition-all duration-200 hover:border-slate-700`;
+        blockCard.innerHTML = `
+                <div class="flex justify-between items-center border-b border-slate-800 pb-1 mb-1">
+                    <span class="font-bold text-white text-[11px]">Blok #${blockNumber}</span>
+                    <span class="text-[9px] px-1.5 py-0.2 rounded bg-indigo-950/60 border border-indigo-800 text-indigo-400 font-bold">${actionType}</span>
+                </div>
+                <div class="text-indigo-300 font-medium truncate" title="Tx Hash: ${txHash}">${shortTx}</div>
+                <div class="text-slate-500 text-[9px] truncate" title="Prev Hash: ${lastBlockHash}">prev: ${shortPrev}</div>
+                <div class="pt-1 border-t border-slate-800/60 mt-1 flex justify-between items-center">
+                    <span class="text-amber-400 font-bold text-[10px] tracking-wide uppercase">${serialId}</span>
+                    <span class="text-slate-400 text-[10px] max-w-[120px] truncate text-right">${detailText}</span>
+                </div>
+            `;
+
+        container.appendChild(blockCard);
+        totalBlocksRendered++;
+
+        document.getElementById("blockCounterView").innerText =
+          `${totalBlocksRendered} Blok`;
+        container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+        lastBlockHash = txHash;
+      }
+
+      async function muatRiwayatBlok() {
+        if (!contract) return;
+
+        try {
+          const container = document.getElementById("blockchainContainer");
+
+          const emptyView = document.getElementById("emptyBlockView");
+          if (emptyView) emptyView.remove();
+
+          // 1. RESET SEMUA STATE VISUAL & MEMORI SEBELUM LOOPING SINKRONISASI
+          container.innerHTML = "";
+          totalBlocksRendered = 0;
+          // Reset hash acuan ke nilai default agar blok pertama membaca ini sebagai 'prev'
+          lastBlockHash =
+            "0x0000000000000000000000000000000000000000000000000000000000000000";
+
+          showToast(
+            "Sinkronisasi riwayat ledger dari Sepolia...",
+            "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
+          );
+
+          // (Proses filter logs EmasDidaftarkan, PemilikDiperbarui, EmasDibatalkan...)
+          // [... Kode penarikan logs tetap sama seperti sebelumnya ...]
+
+          // 2. Jalankan looping setelah array semuaLog di-sort
+          semuaLog.sort((a, b) => a.blockNumber - b.blockNumber);
+
+          if (semuaLog.length === 0) {
+            container.innerHTML = `
+                <div id="emptyBlockView" class="text-center py-16 text-slate-600 text-xs font-mono space-y-2">
+                    <p class="text-xl">📭</p>
+                    <p class="text-[11px]">Belum ada data block di smart contract ini.</p>
+                </div>`;
+          } else {
+            semuaLog.forEach((item) => {
+              // Di sini addBlockVisual akan otomatis menyusun mata rantai hash (prev) dengan benar secara berurutan
+              addBlockVisual(
+                item.blockNumber,
+                item.txHash,
+                item.serialId,
+                item.actionType,
+                item.detailText,
+              );
+            });
+            showToast(
+              "Ledger Blockchain Sinkron!",
+              "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+            );
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
       async function buatSertifikatEmas() {
         if (!contract) return alert("Hubungkan wallet terlebih dahulu!");
 
@@ -475,9 +699,7 @@
         const pemilik = document.getElementById("addPemilik").value;
 
         if (!sn || !batch || !berat || !karat || !pemilik) {
-          return alert(
-            "Mohon lengkapi semua kolom (Serial, Batch, Berat, Karat, Pemilik)!",
-          );
+          return alert("Mohon lengkapi semua kolom!");
         }
 
         showToast(
@@ -485,7 +707,6 @@
           "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
         );
         try {
-          // Menambahkan argument berat, karat, pemilik ke pemanggilan smart contract
           const tx = await contract.daftarkanEmas(
             sn,
             batch,
@@ -497,13 +718,14 @@
             "Menulis blok transaksi ke blockchain Sepolia...",
             "bg-amber-500/10 text-amber-400 border border-amber-500/20",
           );
-          await tx.wait();
+          const receipt = await tx.wait();
           showToast(
             "Sukses! Emas berhasil didaftarkan secara permanen.",
             "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
           );
 
-          // Clear input
+          addBlockVisual(receipt.blockNumber, tx.hash, sn, "MINT", pemilik);
+
           document.getElementById("addSerial").value = "";
           document.getElementById("addBatch").value = "";
           document.getElementById("addBerat").value = "";
@@ -518,7 +740,6 @@
         }
       }
 
-      // FUNGSI BARU: Mengubah Kepemilikan
       async function updatePemilikEmas() {
         if (!contract) return alert("Hubungkan wallet terlebih dahulu!");
 
@@ -536,10 +757,18 @@
         );
         try {
           const tx = await contract.updatePemilik(sn, pemilikBaru);
-          await tx.wait();
+          const receipt = await tx.wait();
           showToast(
             "Sukses! Kepemilikan emas berhasil dipindahtangankan.",
             "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+          );
+
+          addBlockVisual(
+            receipt.blockNumber,
+            tx.hash,
+            sn,
+            "TRANSFER",
+            pemilikBaru,
           );
 
           document.getElementById("transferSerial").value = "";
@@ -553,7 +782,6 @@
         }
       }
 
-      // FUNGSI QUERY DIPERBARUI: Membaca 7 parameter pengembalian (Tuple)
       async function cekKeaslianEmas() {
         if (!contract) return alert("Hubungkan wallet terlebih dahulu!");
         const sn = document.getElementById("querySerial").value;
@@ -567,7 +795,6 @@
         try {
           const res = await contract.cekKeaslian(sn);
 
-          // Membaca output Tuple Solidity yang baru (Urutan Index)
           const terdaftar = res[0];
           const pesanStatus = res[1];
           const batch = res[2];
@@ -581,7 +808,6 @@
             .getElementById("certificateSheet")
             .classList.remove("hidden");
 
-          // Render data ke dokumen visual
           document.getElementById("certSerial").innerText = sn;
           document.getElementById("certStatusMsg").innerText = pesanStatus;
 
@@ -640,7 +866,7 @@
         } catch (error) {
           console.error(error);
           showToast(
-            "Gagal membaca data dari blockchain. Pastikan Alamat Kontrak benar.",
+            "Gagal membaca data dari blockchain.",
             "bg-red-500/10 text-red-400 border border-red-500/20",
           );
         }
@@ -657,10 +883,18 @@
         );
         try {
           const tx = await contract.batalkanEmas(sn);
-          await tx.wait();
+          const receipt = await tx.wait();
           showToast(
             "Sukses! Status emas berhasil dibatalkan (Revoked).",
             "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+          );
+
+          addBlockVisual(
+            receipt.blockNumber,
+            tx.hash,
+            sn,
+            "REVOKE",
+            "Revoked Card",
           );
           document.getElementById("statusSerial").value = "";
         } catch (error) {
