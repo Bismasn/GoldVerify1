@@ -1,4 +1,4 @@
-const contractAddress = "0x5dBe73EF5847721DeD625E1ED7d323Aa952C248d";
+const contractAddress = "0x86Bb4C5c4Af67752eDFe998Ef05C590143a6eF47";
 
 const contractABI = [
   "function isPaused() public view returns (bool)",
